@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu LinkedIn Simples</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0e0e0; /* Fundo claro para contraste */
+        }
+
+        header {
+            background-color: #003366; /* Azul escuro */
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        nav a {
+            color: #fff;
+            margin: 0 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav a.active {
+            text-decoration: underline;
+        }
+
+        main {
+            padding: 20px;
+            background-color: #004d00; /* Verde escuro */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 20px auto;
+            color: #fff; /* Texto branco para contraste */
+        }
+
+        footer {
+            background-color: #003366; /* Azul escuro */
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            margin: 5px 0;
+        }
+
+        form input, form textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: none; /* Remover bordas para um visual mais limpo */
+            border-radius: 4px;
+        }
+
+        .profile-picture {
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .profile-picture img {
+            max-width: 150px;
+            border-radius: 50%;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .profile-picture input[type="file"] {
+            display: block;
+            margin: 10px auto;
+        }
+
+        button {
+            background-color: #003366; /* Azul escuro */
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #002244; /* Azul ainda mais escuro */
+        }
+
+        .post-item, .profile-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            background-color: #005000; /* Verde escuro mais claro para contraste */
+        }
+
+        .profile-display {
+            text-align: center;
+        }
+
+        .profiles-container, .posts-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .profile-item, .post-item {
+            width: 30%;
+            box-sizing: border-box;
+        }
+
+        .profiles-section, .posts-section {
+            margin-bottom: 20px;
+        }
+
+        .profiles-section {
+            background-color: #f0f8ff; /* Azul claro */
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .posts-section {
+            background-color: #e6f7ff; /* Azul claro */
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Meu LinkedIn Simples</h1>
+        <nav>
+            <a href="#" onclick="showSection('home', this)">Home</a>
+            <a href="#" onclick="showSection('profile', this)">Perfil</a>
+            <a href="#" onclick="showSection('posts', this)">Postagens</a>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Página Inicial -->
+        <section id="home" class="section active">
+            <h2>Bem-vindo ao Meu LinkedIn Simples</h2>
+            <p>Crie seu perfil e comece a conectar-se com outros profissionais.</p>
+            <button onclick="showSection('profile', this)">Criar Perfil</button>
+            <div class="profiles-section">
+                <h3>Perfis Recentes</h3>
+                <div id="profilesList" class="profiles-container">
+                    <!-- Lista de perfis vai aqui -->
+                </div>
+            </div>
+            <div class="posts-section">
+                <h3>Postagens Recentes</h3>
+                <div id="postsList" class="posts-container">
+                    <!-- Lista de postagens vai aqui -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Perfil do Usuário -->
+        <section id="profile" class="section">
+            <h2>Seu Perfil</h2>
+            <form id="profileForm">
+                <div class="profile-picture">
+                    <label for="profilePicture">Foto de Perfil:</label>
+                    <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="previewImage(event)">
+                    <img id="profileImagePreview" src="https://via.placeholder.com/150" alt="Sua foto de perfil">
+                </div>
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="name" required>
+                <label for="position">Cargo:</label>
+                <input type="text" id="position" name="position" required>
+                <label for="bio">Bio:</label>
+                <textarea id="bio" name="bio" required></textarea>
+                <button type="submit">Salvar Perfil</button>
+            </form>
+        </section>
+
+        <!-- Postagens -->
+        <section id="posts" class="section">
+            <h2>Postagens</h2>
+            <form id="postForm">
+                <label for="postContent">Criar uma postagem:</label>
+                <textarea id="postContent" name="postContent" required></textarea>
+                <button type="submit">Publicar</button>
+            </form>
+            <h3>Postagens Recentes</h3>
+            <div id="postsList" class="posts-container">
+                <!-- Lista de postagens vai aqui -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Meu LinkedIn Simples</p>
+    </footer>
+
+    <script>
+        const profiles = [];
+        const posts = [];
+
+        function showSection(sectionId, linkElement) {
+            // Oculta todas as seções
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Exibe a seção selecionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Remove a classe 'active' dos links de navegação
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Adiciona a classe 'active' ao link clicado
+            linkElement.classList.add('active');
+        }
+
+        function previewImage(event) {
+            const file = event.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('profileImagePreview');
+                img.src = e.target.result;
+            };
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function updateProfileList() {
+            const profilesList = document.getElementById('profilesList');
+            profilesList.innerHTML = ''; // Limpar lista existente
+
+            profiles.forEach(profile => {
+                const profileItem = document.createElement('div');
+                profileItem.classList.add('profile-item');
+                profileItem.innerHTML = `
+                    <img src="${profile.image}" alt="Foto de perfil" style="max-width: 150px; border-radius: 50%;">
+                    <p><strong>Nome:</strong> ${profile.name}</p>
+                    <p><strong>Cargo:</strong> ${profile.position}</p>
+                    <p><strong>Bio:</strong> ${profile.bio}</p>
+                `;
+                profilesList.appendChild(profileItem);
+            });
+        }
+
+        function updatePostList() {
+            const postsList = document.getElementById('postsList');
+            postsList.innerHTML = ''; // Limpar lista existente
+
+            posts.forEach(post => {
+                const postItem = document.createElement('div');
+                postItem.classList.add('post-item');
+                postItem.innerHTML = `<p>${post.content}</p>`;
+                postsList.appendChild(postItem);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manipulação do formulário de perfil
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Coleta os dados do perfil
+                const name = document.getElementById('name').value;
+                const position = document.getElementById('position').value;
+                const bio = document.getElementById('bio').value;
+                const profileImage = document.getElementById('profileImagePreview').src;
+
+                // Adiciona o perfil à lista global
+                profiles.push({
+                    name,
+                    position,
+                    bio,
+                    image: profileImage
+                });
+
+                // Atualiza a lista de perfis na página inicial
+                updateProfileList();
+
+                // Exibe a seção Home e oculta as demais
+                showSection('home', document.querySelector('nav a[href="#home"]'));
+
+                alert('Perfil salvo com sucesso!');
+                document.getElementById('profileForm').reset();
+                document.getElementById('profileImagePreview').src = 'https://via.placeholder.com/150'; // Resetar imagem
+            });
+
+            // Manipulação do formulário de postagens
+            document.getElementById('postForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Adiciona a postagem à lista global
+                const postContent = document.getElementById('postContent').value;
+                posts.push({
+                    content: postContent
+                });
+
+                // Atualiza a lista de postagens na página inicial
+                updatePostList();
+
+                alert('Postagem publicada com sucesso!');
+                // Limpa o formulário após publicação
+                document.getElementById('postForm').reset();
+            });
+
+            // Inicializa a página com dados existentes
+            updateProfileList();
+            updatePostList();
+        });
+    </script>
+</body>
+</html>
